@@ -1,0 +1,458 @@
+<html>
+	<head>
+		<Title>Numerology JavaScript Library</Title>
+		
+		<style>
+		
+			body { 
+				width: 750px; 
+				background-color: black;
+				background-image: url('http://www.highreshdwallpapers.com/wp-content/uploads/2014/05/Space-wallpaper.jpg');
+				background-repeat: no-repeat;	
+				margin-left:auto;
+				margin-right:auto;
+				font-family: cursive;
+			}
+		
+			label {
+				display:block;
+				width:300;
+				padding:6px;
+				margin: 3px;
+				float: left;
+				text-align:right;
+				border:1px solid silver;
+				font-size: 14pt;
+				background-color:#000022;
+				color:#EAEAFF;
+				opacity: 0.7;
+			}
+			
+			input[type=submit] {
+				float:right;
+				padding:5px 15px;
+				height: 75px;
+				background:#000022;
+				color: #FFFFFF;
+				cursor:pointer;
+				-webkit-border-radius: 5px;
+				border-radius: 15px;
+				opacity: 0.8; 				
+			}			
+			
+			span, input {
+				display:block;
+			}
+			
+			input {
+				font-size: 16pt;
+				padding: 8px;
+				margin: 4px;
+				opacity: 0.8;
+				border:1px solid silver;	
+				background:#000022;
+				color: #FFFFFF;	
+				width:420;
+			}
+			
+			span {
+				float:left;
+				width: 25px;
+				padding:7px;
+				margin:2 3px;
+				font-size: 22px;
+				border: 1px solid blue;
+				text-align: center;
+				background-color: #FFFFFF;
+				opacity: 0.5;	
+			}
+			
+			h1 {
+				display: block;
+				width:735;
+				padding: 25 5px;
+				margin:10 0px;
+				border:1px solid silver;
+				font-size: 24pt;
+				background-color:#000022;
+				color:#DEDEFF;
+				opacity: 0.8;
+				filter: alpha(opacity=60); 
+				color:#DEDEFF;
+				text-align: center;
+				font-family: verdana;
+				font-weight: normal;
+			}
+		</style>
+		
+		<script>
+			Array.prototype.indexOf = function(character){   
+				value = -1;
+				
+				for (var i = 0; i < this.length; i++){
+					if (this[i] == character){
+						value = i;
+						break;
+					} 
+				}
+				
+				return value;
+			}
+			
+			String.prototype.isVowel = function(){
+				var englishVowels	  = ["A","E","I","O","U"];
+				
+				if (englishVowels.indexOf(this.toUpperCase()) != -1){
+					return true;
+				}
+				
+				return false;
+			}	
+
+			//## Numeral Obj ##//
+			function Numeral(numericValue){
+				this.numericValue = parseInt(numericValue);
+			}
+			
+			Numeral.prototype.toString = function(){
+				return this.numericValue;
+			};
+			
+			Numeral.prototype.sayHi = function(){
+				alert("Hi!  I'm a Numeral Object!");
+			};
+					
+
+			//## NUMERIZE() ##//
+			//## Returns a 'Numeral' object representing the number, string, or dateTime. 
+			Number.prototype.numerize = function(){
+				stringValue = this.toString();
+				singleton = null;
+				
+				for (var i = 0, len = stringValue.length; i < len; i += 1) {
+					singleton += parseInt(stringValue.charAt(i));
+				}		
+				
+				if (singleton < 10){
+					numeral = new Numeral(singleton);
+					return numeral
+				} else {
+					return singleton.numerize();
+				}
+			}
+			
+			Date.prototype.numerize = function(factor){
+				if (!factor){
+					factor = "life";
+				}				
+				
+				var baseValue = 0;
+				
+				var day 	= this.getDate();
+				var month 	= this.getMonth() + 1;
+				var year 	= this.getFullYear();
+				
+				switch(factor){
+					case "life":
+						baseValue = month.toString() + day.toString() + year.toString();				
+						break;
+
+					case "birth":
+						// need to think this through.. returned value won't be traditional numeral value. 
+						//baseValue = day; 
+						break;
+						
+					case "challenge1":
+						baseValue = Math.abs(month.numerize().numericValue - day.numerize().numericValue);
+						break;
+						
+					case "challenge2":
+						baseValue = Math.abs(day.numerize().numericValue - year.numerize().numericValue);
+						break;
+						
+					case "challenge3": // AKA Main Challenge
+						baseValue = Math.abs(this.numerize("challenge1").numericValue - this.numerize("challenge2").numericValue);
+						break;
+						
+					case "challenge4":
+						baseValue = Math.abs(month.numerize().numericValue - year.numerize().numericValue);
+						break;
+						
+					case "pinnacle1":
+						baseValue = month.numerize().numericValue + day.numerize().numericValue;
+						break;
+						
+					case "pinnacle2":
+						baseValue = day.numerize().numericValue + year.numerize().numericValue;
+						break;
+						
+					case "pinnacle3":
+						baseValue = this.numerize("pinnacle1").numericValue + this.numerize("pinnacle2").numericValue;
+						break;
+						
+					case "pinnacle4":
+						baseValue = month.numerize().numericValue + year.numerize().numericValue;
+						break;
+					
+					/* ## This is a range and part of the profile.. not a numeral.  
+					case "period1":
+						baseValue = 27 + (9 - this.numerize("life"));
+						break;
+						
+					case "period2":
+						
+						break;
+						
+					case "period3":
+						
+						break;
+					*/
+					case "personalYear":
+						var now = new Date();
+						baseValue = month.numerize().toString() + day.numerize().toString() + now.getFullYear().toString();						
+						break;	
+
+					case "personalMonth":
+						var now = new Date();
+						baseValue = (now.getMonth().numerize() + 1 ).toString() + this.numerize("personalYear");						
+						break;	
+						
+					case "personalDay":
+						var now = new Date();
+						baseValue = now.getDate().numerize().toString() + this.numerize("personalYear");					
+						break;							
+						
+					default:
+					
+						break;
+				}
+				
+				return parseInt(baseValue).numerize();
+			}
+			
+			// A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 
+			// 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8	
+			String.prototype.numerize = function(factor){
+				if (!factor){
+					factor = "expression";
+				}
+				
+				var englishDictionary = ["A","B","C","D","E","F","G","H","I",
+										 "J","K","L","M","N","O","P","Q","R",
+										 "S","T","U","V","W","X","Y","Z"];
+										 											
+				var charList = this.split("");				
+				var baseValue = 0;
+				
+				switch(factor){
+					case "expression":
+						for (var i = 0; i < charList.length; i++){
+							baseValue = baseValue + englishDictionary.indexOf(charList[i].toUpperCase()) + 1;
+						}
+						break;
+						
+					case "desire":
+						for (var i = 0; i < charList.length; i++){
+							if (charList[i].isVowel()){
+								baseValue = baseValue + englishDictionary.indexOf(charList[i].toUpperCase()) + 1;
+							}
+						}
+						break;
+						
+					case "personality": // AKA destiny number
+						for (var i = 0; i < charList.length; i++){
+							if (!charList[i].isVowel()){
+								baseValue = baseValue + englishDictionary.indexOf(charList[i].toUpperCase()) + 1;
+							}
+						}	
+						break;
+
+					// Incomplete -- needs to return an array of numerals. 
+					case "karmic":						
+						var numberList = new Array(false,false,false,false,false,false,false,false,false);
+
+						for (var i = 0; i < charList.length; i++){
+							numberList[charList[parseInt(i)].numerize().numericValue - 1] = true;							
+						}
+							
+						for (var i = 0; i < numberList.length; i++){
+							if(!numberList[i]){
+								//baseValue = baseValue + (i + 1).toString();
+							}
+						}
+							
+						break;	
+
+					case "passion":						
+					
+						break;	
+					case "balance":	
+						var wordList = this.split(" ");
+
+						for (var i = 0; i < wordList.length; i++){
+							baseValue = baseValue.toString() + wordList[i].charAt(0).numerize().toString();
+						}										
+						break;
+
+					case "subconscious":						
+						var numberList = new Array(false,false,false,false,false,false,false,false,false);
+
+						for (var i = 0; i < charList.length; i++){
+							numberList[charList[parseInt(i)].numerize().numericValue - 1] = true;							
+						}
+							
+						for (var i = 0; i < numberList.length; i++){
+							if(numberList[i]){
+								baseValue = baseValue + 1;
+							}
+						}
+						break;
+					
+					/* These are more part of the profile and not a numeral. 
+					case "cornerstone":
+					
+						break;
+						
+					case "capstone":
+					
+						break;
+						
+					case "vowel":
+					
+						break;
+					*/
+						
+					default:
+						baseValue = -1;
+						break;
+				}
+				
+				return parseInt(baseValue).numerize();						
+			
+			}
+			
+			function getProfile(){
+				// Inputs
+				var birthnameInput					= document.getElementById("birthnameInput");
+				var birthdateInput					= document.getElementById("birthdateInput");
+				
+				// Outputs
+				var lifepathOutput					= document.getElementById("lifepathOutput");
+				var expressionOutput				= document.getElementById("expressionOutput");
+				var heartsdesireOutput				= document.getElementById("heartsdesireOutput");
+				var personalityOutput				= document.getElementById("personalityOutput");
+				var hiddenpassionOutput				= document.getElementById("hiddenpassionOutput");
+				var balanceOutput					= document.getElementById("balanceOutput");
+				var subconsciousselfOutput			= document.getElementById("subconsciousselfOutput");
+				var earlychallangeOutput			= document.getElementById("earlychallangeOutput");
+				var midlifechallangeOutput			= document.getElementById("midlifechallangeOutput");
+				var lifechallangeOutput				= document.getElementById("lifechallangeOutput");
+				var finalchallangeOutput			= document.getElementById("finalchallangeOutput");
+				var firstpinnacleOutput				= document.getElementById("firstpinnacleOutput");
+				var secondpinnacleOutput			= document.getElementById("secondpinnacleOutput");
+				var thirdpinnacleOutput				= document.getElementById("thirdpinnacleOutput");
+				var forthpinnacleOutput				= document.getElementById("forthpinnacleOutput");	
+				var personalyearOutput				= document.getElementById("personalyearOutput");				
+				
+				// ... Get input values in correct format. 
+				var birthname = birthnameInput.value;
+				var birthdate = new Date(birthdateInput.value);
+				
+				// ... Use Numerology library to set output values. 
+				lifepathOutput.innerHTML 			= birthdate.numerize("life").toString();
+				expressionOutput.innerHTML 			= birthname.numerize("expression").toString();
+				heartsdesireOutput.innerHTML 		= birthname.numerize("desire").toString();
+				personalityOutput.innerHTML 		= birthname.numerize("personality").toString();
+				hiddenpassionOutput.innerHTML 		= birthname.numerize("passion").toString();
+				balanceOutput.innerHTML 			= birthname.numerize("balance").toString();
+				subconsciousselfOutput.innerHTML 	= birthname.numerize("subconscious").toString();
+				earlychallangeOutput.innerHTML 		= birthdate.numerize("challenge1").toString();
+				midlifechallangeOutput.innerHTML 	= birthdate.numerize("challenge2").toString();
+				lifechallangeOutput.innerHTML 		= birthdate.numerize("challenge3").toString();
+				finalchallangeOutput.innerHTML 		= birthdate.numerize("challenge4").toString();
+				firstpinnacleOutput.innerHTML 		= birthdate.numerize("pinnacle1").toString();
+				secondpinnacleOutput.innerHTML 		= birthdate.numerize("pinnacle2").toString();
+				thirdpinnacleOutput.innerHTML 		= birthdate.numerize("pinnacle3").toString();
+				forthpinnacleOutput.innerHTML 		= birthdate.numerize("pinnacle4").toString();	
+				personalyearOutput.innerHTML 		= birthdate.numerize("personalYear").toString();
+				personalmonthOutput.innerHTML 		= birthdate.numerize("personalMonth").toString();
+				personaldayOutput.innerHTML 		= birthdate.numerize("personalDay").toString();				
+			}
+			
+			
+		</script>		
+	</head>
+	
+	<body>
+		<h1>Numerology Profile Generator</h1>
+		
+		<div>
+			<!-- <input type="submit" name="Get Profile" value="Get Profile" onclick="getProfile()"/> -->
+						
+			<label>Birth Date:</label>
+			<input type="text" name="birthdate" id="birthdateInput" onKeyUp="getProfile()" />
+			
+			<label>Full Birth Given Name:</label>
+			<input type="text" name="birthname" id="birthnameInput" onKeyUp="getProfile()" />			
+		</div>
+
+		<div>
+			<label>Life Path:</label>
+			<span id="lifepathOutput">&nbsp;</span>
+			
+			<label>Expression:</label>
+			<span id="expressionOutput">&nbsp;</span>	
+
+			<label>Heart's Desire:</label>
+			<span id="heartsdesireOutput">&nbsp;</span>	
+			
+			<label>Personality:</label>
+			<span id="personalityOutput">&nbsp;</span>
+
+			<label>Hidden Passion:</label>
+			<span id="hiddenpassionOutput">&nbsp;</span>
+			
+			<label>Balance:</label>
+			<span id="balanceOutput">&nbsp;</span>
+
+			<label>Subconscious Self:</label>
+			<span id="subconsciousselfOutput">&nbsp;</span>
+			
+			<label>Early Challange:</label>
+			<span id="earlychallangeOutput">&nbsp;</span>	
+
+			<label>Midlife Challange:</label>
+			<span id="midlifechallangeOutput">&nbsp;</span>	
+			
+			<label>Life Challange:</label>
+			<span id="lifechallangeOutput">&nbsp;</span>	
+			
+			<label>Final Challange:</label>
+			<span id="finalchallangeOutput">&nbsp;</span>	
+			
+			<label>First Pinnacle:</label>
+			<span id="firstpinnacleOutput">&nbsp;</span>	
+
+			<label>Second Pinnacle:</label>
+			<span id="secondpinnacleOutput">&nbsp;</span>	
+			
+			<label>Third Pinnacle:</label>
+			<span id="thirdpinnacleOutput">&nbsp;</span>	
+			
+			<label>Final Pinnacle:</label>
+			<span id="forthpinnacleOutput">&nbsp;</span>
+
+			<label>Personal Year:</label>
+			<span id="personalyearOutput">&nbsp;</span>		
+
+			<label>Personal Month:</label>
+			<span id="personalmonthOutput">&nbsp;</span>	
+			
+			<label>Personal Day:</label>
+			<span id="personaldayOutput">&nbsp;</span>				
+			
+		</div>
+
+		
+	</body>
+</html>
