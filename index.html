@@ -1,0 +1,389 @@
+<html>
+    <head>
+        <Title>Web Portfolio of Wesley J Shell</Title>
+        <div id="fb-root"></div>
+        <script>
+            (function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=87985729438&version=v2.0";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+        
+        <script language="javascript" type="text/javascript">
+        function pageScroll(){
+            
+            var panel = document.getElementById("panel1");
+            var panel2 = document.getElementById("panel2");
+            var panel3 = document.getElementById("panel3");
+            var panel4 = document.getElementById("panel4");
+            var bg = document.getElementById("background");
+            var bg2 = document.getElementById("background2");
+
+            var panelNum = Math.ceil(document.body.scrollTop / window.innerHeight);
+            //alert(panelNum);
+            
+            switch (panelNum){
+                case 1:              
+                    panel.style.opacity = 1 - (document.body.scrollTop / window.innerHeight);
+                    panel2.style.opacity = document.body.scrollTop / window.innerHeight;
+                    bg.style.opacity = .5 - (document.body.scrollTop / window.innerHeight) / 2;  
+                    bg2.style.opacity = (document.body.scrollTop / window.innerHeight) / 2;  
+                    break;
+                
+                case 2:
+                    panel.style.opacity = 0;
+                    panel2.style.opacity = 2 - (document.body.scrollTop / window.innerHeight);
+                    panel3.style.opacity = document.body.scrollTop / window.innerHeight - 1;
+                    break;
+                    
+                case 3:
+                    panel.style.opacity = 0;
+                    panel2.style.opacity = 0;
+                    
+                case 4:
+            }
+
+        }
+        </script>
+          <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+        <style type="text/css">
+            
+            
+            
+            body {
+                background-color:#f44200;
+                font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif; 
+                padding:0px;
+                margin:0px;
+                font-size: x-small;
+            }
+            
+            #background {
+                width:100%;
+                height:100%;
+                background-image:url(rain-forest.jpg);
+                margin:0px;
+                paddin:0px;
+                opacity: .5;
+                z-index: 0;
+                background-attachment: fixed;
+                position: fixed;
+                background-size: 100% 100%;
+            }
+            
+            #background2 {
+                width:100%;
+                height:100%;
+                background-image:url(redwoods.jpg);
+                margin:0px;
+                paddin:0px;
+                opacity: .5;
+                z-index: 0;
+                background-attachment: fixed;
+                position: fixed;
+                background-size: 100% 100%;
+            }            
+            
+            .panel {
+                width: 100%;
+                max-width: 1000px;
+                min-width: 400px;
+                height: 100%;
+                position: fixed;
+                bottom:0px;
+                top:0px;
+                background-color: #edffe1;
+            }
+            
+            .panel h1 {
+                margin-bottom:0px;
+                margin-left:15px; 
+                font-size: 18pt;
+                font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+                font-weight: normal;
+            }
+            
+            .panel h2{
+                margin-left:15px;
+                margin-top:0px;
+                color: #00a019;
+                font-weight: normal;
+                font-size: 10pt;
+            }            
+            
+            #canvas {
+                max-width: 1000px;
+                min-width: 400px;
+                border-left: 5px solid #101045;
+                border-right: 5px solid #101045;                
+                margin-top: 0px;
+                margin-right: auto;
+                margin-left: auto;
+                position: relative;
+                height: 1000%;
+                background-color: silver;
+                z-index: 1;
+            }
+            .googleBtn{
+                float:right; 
+                padding:6px; 
+                margin-right:20px; 
+                margin-left: -10px;
+                margin-top:0px;
+                font-size: small;                
+            }
+            
+            .navigationItem{
+                float:right; 
+                padding:5px; 
+                margin-right:20px; 
+                margin-left: 20px;
+                margin-top:20;
+                border:1px solid green;   
+                background-color: white;
+                font-size: small; 
+                height:60px;
+                width: 60px;
+                text-align: center;
+                font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+                font-size: xx-large;
+            }
+            
+            .topMenuItem {
+                float:right; 
+                padding:6px; 
+                margin-right:20px; 
+                margin-left: -10px;
+                margin-top:6px;
+                border:1px solid silver;   
+                background-color: white;
+                font-size: small;
+            }
+            
+            .topMenuItem:hover {  
+                background-color: #f44200;
+                color: #ffead8;
+                cursor: pointer;
+            }    
+            
+            #panel1 #photoTile {
+                width: 100%;
+                display: block;
+                height:320;
+                background-color: black;
+                position:absolute;
+                top:100;
+                background-image: url(Tree-Frog.jpg);
+                background-repeat: no-repeat;
+                background-position: right;
+            }
+            
+            #panel2 #photoTile, #panel3 #photoTile, #panel4 #photoTile {
+                width: 100%;
+                display: block;
+                height:320;
+                background-color: black;
+                position:absolute;
+                top:100;
+                background-image: url(frogs-D-frogs.jpg);
+                background-repeat: no-repeat;
+                background-position: right;
+            }                              
+            
+            .quoteBlock {
+                display:block;
+                max-width:400px;
+                margin:70px;
+                font-size: x-large;
+                line-height: 1.7em;
+                font-family: Papyrus, fantasy;
+                color:white;
+                text-align: center;
+            }
+            
+            #panel2 .quoteBlock1, #panel3 .quoteBlock1, #panel4 .quoteBlock1 {
+                display:block;
+                max-width:400px;
+                margin:20px;
+                font-size: x-large;
+                line-height: 1.7em;
+                font-family: Papyrus, fantasy;
+                color:white;
+                text-align: center;
+            }
+            
+            #panel3 .quoteBlock2, #panel4 .quoteBlock2 {
+                display:block;
+                max-width:400px;
+                margin-left:50px;
+                margin-top:180px;
+                font-size: x-large;
+                line-height: 1.7em;
+                font-family: Papyrus, fantasy;
+                color:white;
+                text-align: center;
+            }    
+
+           #panel4 .quoteBlock3 {
+                position: absolute;
+                display:block;
+                
+                font-size: x-large;
+                line-height: 1.7em;
+                font-family: Papyrus, fantasy;
+                color:white;
+                text-align: center;
+            } 
+            
+            #contentTile {
+                width: 100%;
+                display: block;
+                background-color: #101045;
+                border-top: 2px solid silver;
+                position:absolute;
+                top: 535px;
+                bottom:0; 
+            }
+            
+            #navigationTile {
+                width: 100%;
+                display: block;
+                background-color: #689052;
+                border-top: 2px solid silver;
+                position:absolute;
+                top: 420;
+                height:auto;
+                bottom:0;             
+            }  
+            
+            #copyright{
+                font-size: small;
+                text-align: center;
+                color: white;
+                padding:15px;
+            }
+            
+            #panel2, #panel3{
+                opacity: 0;    
+            }
+            
+            #background2 {
+                opacity: 0;   
+            }
+            
+            
+                
+        </style>
+    </head>
+    <body onscroll="pageScroll()">
+        <div id="background"></div>
+        <div id="background2"></div>
+            <div id="canvas">
+                <div class="panel" id="panel1">
+                    <div id="headerTile">                       
+                        <div class="topMenuItem">CONTACT ME</div>                     
+                        <div class="topMenuItem">CONSULTING</div>
+                        <div class="topMenuItem">TRAINING SERVICES</div>                    
+                        <div class="topMenuItem">ABOUT ME</div>
+                        <h1>Wesley J. Shell</h1> 
+                        <h2>Programmer | Designer | Consultant</h1>                    
+                    </div>
+                    <div id="photoTile">
+                        <div class="quoteBlock">
+                            "Design is not just what it looks like and feels like. Design is how it works."<br/>
+                            <div style="text-align:right;">-- Steve Jobs</div>  
+                        </div>
+                    </div>
+                    <div id="navigationTile">
+                        <div class="navigationItem"></div>
+                        <div class="navigationItem"></div>
+                        <div class="navigationItem"></div>
+                        <div class="navigationItem"></div>
+                        <div class="navigationItem"></div>
+                        <div class="navigationItem"></div>
+                        <div class="navigationItem"></div>                       
+                    </div>
+                    <div id="contentTile">
+                        <div id="copyright">&copy Copyright 2014, Wesley J Shell, All Rights Reserved.</div>
+                        <div class="googleBtn"><g:plusone size="tall" data-size="tall"></g:plusone></div>
+                        <div class="googleBtn"><div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="box_count" data-action="like" data-show-faces="true" data-share="false"></div></div>
+                        <div class="googleBtn"><a href="https://twitter.com/share" class="twitter-share-button" data-size="large">Tweet</a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>  </div>                        
+                    </div>
+                </div>
+                
+                <div class="panel" id="panel2">
+                    <div id="headerTile">                       
+                        <div class="topMenuItem">CONTACT ME</div>                     
+                        <div class="topMenuItem">CONSULTING</div>
+                        <div class="topMenuItem">TRAINING SERVICES</div>                    
+                        <div class="topMenuItem">ABOUT ME</div>
+                        <h1>Wesley J. Shell</h1>
+                        <h2>Programmer | Designer | Consultant</h1>                    
+                    </div>
+                    <div id="photoTile">
+                        <div class="quoteBlock1">
+                            Bringing All The Peices
+                        </div>
+                    </div>
+                    <div id="navigationTile">
+                        <div class="navigationItem"></div>
+                        <div class="navigationItem"></div>
+                        <div class="navigationItem"></div>
+                        <div class="navigationItem"></div>
+                        <div class="navigationItem"></div>
+                        <div class="navigationItem"></div>
+                        <div class="navigationItem"></div>                       
+                    </div>
+                    <div id="contentTile">
+                        <div id="copyright">&copy Copyright 2014, Wesley J Shell, All Rights Reserved.</div>
+                        <div class="googleBtn"><g:plusone size="tall" data-size="tall"></g:plusone></div>
+                        <div class="googleBtn"><div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="box_count" data-action="like" data-show-faces="true" data-share="false"></div></div>
+                        <div class="googleBtn"><a href="https://twitter.com/share" class="twitter-share-button" data-size="large">Tweet</a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>  </div>                        
+                    </div>
+                </div> 
+                
+                
+                <div class="panel" id="panel3">
+                    <div id="headerTile">                       
+                        <div class="topMenuItem">CONTACT ME</div>                     
+                        <div class="topMenuItem">CONSULTING</div>
+                        <div class="topMenuItem">TRAINING SERVICES</div>                    
+                        <div class="topMenuItem">ABOUT ME</div>
+                        <h1>Wesley J. Shell</h1>
+                        <h2>Programmer | Designer | Consultant</h1>                    
+                    </div>
+                    <div id="photoTile">
+                        <div class="quoteBlock1">
+                           Bringing All The Peices
+                        </div> 
+                        <div class="quoteBlock2">
+                           TOGETHER
+                        </div>                        
+                    </div>
+                    <div id="navigationTile">
+                        <div class="navigationItem"></div>
+                        <div class="navigationItem"></div>
+                        <div class="navigationItem"></div>
+                        <div class="navigationItem"></div>
+                        <div class="navigationItem"></div>
+                        <div class="navigationItem"></div>
+                        <div class="navigationItem"></div>                       
+                    </div>
+                    <div id="contentTile">
+                        <div id="copyright">&copy Copyright 2014, Wesley J Shell, All Rights Reserved.</div>
+                        <div class="googleBtn"><g:plusone size="tall" data-size="tall"></g:plusone></div>
+                        <div class="googleBtn"><div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="box_count" data-action="like" data-show-faces="true" data-share="false"></div></div>
+                        <div class="googleBtn"><a href="https://twitter.com/share" class="twitter-share-button" data-size="large">Tweet</a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>  </div>                        
+                    </div>
+                </div>   
+                                 
+            </div>
+    </body>
+</html>
